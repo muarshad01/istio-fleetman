@@ -1,0 +1,44 @@
+------------------------
+Section 3: Hands on Demo
+------------------------
+$ brew install minikube
+
+$ minikube delete
+$ minikube start --memory 4096
+$ minikube status
+$ minikube stop
+
+$ cd /Users/umer/Desktop/istio-fleetman/_course_files/warmup-exercise
+$ kubectl apply -f 1-istio-init.yaml # creates a series of customerresourcedefinitions (CRD)
+$ kubectl get po -n istio-system
+$ kubectl apply -f 2-istio-minikube.yaml
+$ kubectl get po -n istio-system
+
+$ cat 3-kiali-secret.yaml 
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: kiali
+  namespace: istio-system
+  labels:
+    app: kiali
+data:
+  username: YWRtaW4=
+  passphrase: YWRtaW4=
+---
+
+ $ echo YWRtaW4=| base64 --d #decode username
+
+
+Lecture 6: Enabling Sidecar Injection
+-------------------------------------
+$ kubectl describe ns default
+$ kubectl label namespace default istio-injection=enabled
+$ kubectl describe ns default
+$ kubectl get ns default -o yaml
+
+Lecture 7. Visualizing the System with kiali
+--------------------------------------------
+
